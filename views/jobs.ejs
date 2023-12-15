@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="jobs">
+      <% if (works.length) { %> <% works.forEach((work) => { %> <% if
+      (!work.doneBy) { %>
+      <h2><%= work.title %></h2>
+      <p><%= work.description %></p>
+      <p><%= work.hiredBy.username %></p>
+      <input type="hidden" id="work" value="<%= JSON.stringify(work) %>">
+      <input type="hidden" id="user" value="<%= JSON.stringify(user) %>">
+      <button class="Ask">Ask for work</button>
+      <% } %> <% }) %> <% } %>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io()
+      socket.on('newJob', (data) => {
+        const jobs = document.getElementById('jobs')
+        const title = data.title
+        const description=data.description
+        const user=data.user
+        const newJob = document.createElement('h2')
+        const newDes=document.createElement('p')
+        const newUser=document.createElement('p')
+        const newButton = document.createElement('button')
+        newJob.textContent = title
+        newDes.textContent=description
+        newUser.textContent=user;
+        newButton.textContent='Ask for job'
+        jobs.appendChild(newJob)
+        jobs.appendChild(newDes)
+        jobs.appendChild(newUser)
+        jobs.appendChild(newButton)
+      })
+      const btns=document.querySelectorAll('.Ask');
+      btns.forEach((btn)=>{
+        btn.addEventListener('click',(e)=>{
+            e.preventDefault();
+            const workString=document.getElementById('work').value;
+            const user=document.getElementById('user').value;
+            console.log(work)
+            socket.emit('JOB',{work:workString,user:user});
+        })
+      })
+    </script>
+  </body>
+</html>

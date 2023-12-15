@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="content">
+        <p class="header">Register to see more</p>
+        <form action="/register" method="post">
+          <input
+            type="text"
+            placeholder="UserName"
+            name="username"
+            class="detail"
+          /><br />
+          <input
+            type="email"
+            placeholder="Email"
+            name="email"
+            class="detail"
+          /><br />
+          <input
+            type="text"
+            placeholder="Full Name"
+            name="fullname"
+            class="detail"
+          /><br />
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            class="detail"
+          /><br />
+          <input
+            type="tel"
+            placeholder="MobileNo."
+            name="mobile"
+            class="detail"
+          /><br />
+          <h1>Why are you here</h1>
+          <input type="radio" name="option" value="hirer" />To hire
+          <input type="radio" name="option" value="freeLancer" />To Work
+          <br />
+          <input type="submit" class="btn int" value="Register" />
+        </form>
+
+        <a href="/forgot">Forgot your password?</a>
+
+        <footer>
+          <p></p>
+          <a href="/login">Already Registered ? Login</a>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

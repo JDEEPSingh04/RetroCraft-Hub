@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="/newJob" method="post" id="form">
+      <input type="text" id="Title" placeholder="Title" />
+      <input type="text" id="Description" placeholder="Description" />
+      <input
+        type="hidden"
+        name="userId"
+        id="user"
+        value="<%= JSON.stringify(user) %>"
+      />
+      <input type="submit" value="Create" />
+    </form>
+    <h1>My current requirements</h1>
+    <div class="requirements">
+      <% user.works.forEach((work) => { %>
+      <h3><%= work.title %></h3>
+      <p><%= work.description %></p>
+      <% }) %>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io()
+      const form = document.getElementById('form')
+      const inputTitle = document.getElementById('Title')
+      const inputDes = document.getElementById('Description')
+      const user = document.getElementById('user').value
+      form.addEventListener('submit', (e) => {
+        e.preventDefault()
+        if (inputTitle.value && inputDes.value) {
+          socket.emit('newJob', {
+            Title: inputTitle.value,
+            Description: inputDes.value,
+            user: user,
+          })
+          inputDes.value = ''
+          inputTitle.value = ''
+        }
+      })
+      socket.on('newRequirement', (data) => {
+        const newTitle=document.createElement('h3')
+        const newDes=document.createElement('p')
+        newTitle.textContent=data.title
+        newDes.textContent=data.Description
+        const parent=document.getElementById('requirements')
+        parent.appendChild(newTitle)
+        parent.appendChild(newDes)
+      })
+    </script>
+  </body>
+</html>

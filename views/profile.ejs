@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <% if(user){ %>
+    <p><%= user.fullname %></p>
+    <p><%= user.username %></p>
+    <p><%= user.email %></p>
+    <p><%= user.description %></p>
+    <% } %>
+
+    <% if(user.description==='freeLancer'){ %>
+      <a href="/jobs">View available jobs</a>
+    <% } else{ %>
+      <a href="/newJob">Create New Job</a>
+    <% } %>
+
+    <a href="/updateProfile">Update Profile</a>
+  </body>
+</html>
